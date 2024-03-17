@@ -1,0 +1,7 @@
+---
+
+virtualmin_bin_location: /sbin/virtualmin
+virtualmin_download_url: https://software.virtualmin.com/gpl/scripts/virtualmin-install.sh
+virtualmin_download_dest: /tmp/virtualmin-install.sh
+
+virtualmin_bundle: LAMP
