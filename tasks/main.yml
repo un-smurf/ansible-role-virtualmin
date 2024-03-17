@@ -15,7 +15,7 @@
   when: 'not virtualmininstalled.stat.exists'
 
 - name: Install Virtualmin (LAMP bundle)
-  ansible.builtin.command: '{{ virtualmin_download_dest }} --hostname {{ virtualmin_fqdn }} --minimal --force --bundle {{ virtualmin_bundle }}' 
+  ansible.builtin.command: '{{ virtualmin_download_dest }} --hostname {{ virtualmin_fqdn }} --force --bundle {{ virtualmin_bundle }}' 
   register: command_result
   failed_when: "'FAILED' in command_result.stderr"
   changed_when: "'SUCCESS' in command_result.stdout"
