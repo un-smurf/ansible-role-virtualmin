@@ -12,17 +12,17 @@
     mode: 0755
     owner: root
     group: root
-  when: not virtualmininstalled.stat.exists | bool == false
+  changed_when: not virtualmininstalled.stat.exists
 
 - name: Install Virtualmin (LAMP bundle)
   ansible.builtin.command: '{{ virtualmin_download_dest }} --hostname {{ ansible_host }} --force --bundle {{ virtualmin_bundle }}'
-  when: not virtualmininstalled.stat.exists | bool == false and virtualmin_bundle == "LAMP"
+  changed_when: not virtualmininstalled.stat.exists and virtualmin_bundle == "LAMP"
 
 - name: Install Virtualmin (LEMP bundle)
   ansible.builtin.command: '{{ virtualmin_download_dest }} --hostname {{ ansible_host }} --force --bundle {{ virtualmin_bundle }}'
-  when: not virtualmininstalled.stat.exists | bool == false and virtualmin_bundle == "LEMP"
+  changed_when: not virtualmininstalled.stat.exists and virtualmin_bundle == "LEMP"
 
 - name: Debug Output
   ansible.builtin.debug:
     msg: 'You can now login at the following address using user root and its respective password: https://{{ ansible_facts.default_ipv4.address }}:10000'
-  when: not virtualmininstalled.stat.exists | bool == false
+  changed_when: not virtualmininstalled.stat.exists
