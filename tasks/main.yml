@@ -3,7 +3,7 @@
 - name: Check if Virtualmin is already installed
   ansible.builtin.stat:
     path: '{{ virtualmin_bin_location }}'
-  register: virtualmin
+  register: virtualmininstalled
 
 - name: Download Virtualmin installation script
   ansible.builtin.get_url:
@@ -12,17 +12,17 @@
     mode: 0755
     owner: root
     group: root
-  when: not virtualmin.stat.exists
+  when: not virtualmininstalled.stat.exists 
 
 - name: Install Virtualmin (LAMP bundle)
   ansible.builtin.command: '{{ virtualmin_download_dest }} --hostname {{ ansible_host }} --force --bundle {{ virtualmin_bundle }}'
-  when: not virtualmin.stat.exists and 'LAMP' in virtualmin_bundle
+  when: not virtualmininstalled.stat.exists and virtualmin_bundle == "LAMP"
 
 - name: Install Virtualmin (LEMP bundle)
   ansible.builtin.command: '{{ virtualmin_download_dest }} --hostname {{ ansible_host }} --force --bundle {{ virtualmin_bundle }}'
-  when: not virtualmin.stat.exists and 'LEMP' in virtualmin_bundle
+  when: not virtualmininstalled.stat.exists and virtualmin_bundle == "LEMP"
 
 - name: Debug Output
-  debug:
+  ansible.builtin.debug:
     msg: 'You can now login at the following address using user root and its respective password: https://{{ ansible_facts.default_ipv4.address }}:10000'
-  when: not virtualmin.stat.exists
+  when: not virtualmininstalled.stat.exists
