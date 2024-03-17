@@ -9,7 +9,7 @@ Install Virtiualmin GPL - https://www.virtualmin.com/download/
 ## Requirements
 
 Needs to be a new blank server.
-A FQDN needs to be set. This is required by Virtualmin. you can use https://github.com/un-smurf/ansible-role-hostname
+A FQDN needs to be set. This is required by Virtualmin.
 
 ## Dependencies
 
@@ -35,6 +35,10 @@ Download URL
 
 Download Location
 
+	virtualmin_fqdn: "server1.example.com"
+
+FQDN as required by virtualmin
+
 	virtualmin_bundle: LAMP
 
 Bundle Type (LAMP or LEMP)
@@ -55,7 +59,8 @@ Inside `vars/main.yml`:
 
 
 	virtualmin_bundle: LAMP
-
+	virtualmin_fqdn: "server1.example.com"
+	
 
 ## License
 
